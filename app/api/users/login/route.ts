@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
-import { loadUsers } from '@/app/utils/dataHandler'
+import type { User } from '@/app/types/user'
+import { loadJsonData } from '@/app/utils/jsonStorageHandler'
 
-const SECRET = process.env.JWT_SECRET || 'defaultsecret'
+const SECRET = process.env.JWT_SECRET!;
 
 // POST
 export async function POST (req: Request) {
@@ -16,7 +17,7 @@ export async function POST (req: Request) {
     )
   }
 
-  const users = await loadUsers()
+  const users = await loadJsonData<User>('users')
   const user = users.find(u => u.email === email && u.password === password)
 
   if (!user) {
