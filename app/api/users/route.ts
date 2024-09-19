@@ -1,19 +1,15 @@
 import { NextResponse } from 'next/server';
-import { kv } from '@vercel/kv';
-import fs from 'fs';
+import jwt from 'jsonwebtoken';
+import type { User } from '@/app/types/user'
+import { loadUsers, saveUsers } from '@/app/utils/userDataHandler';
 
-type User = {
-  username: string;
-  email: string;
-  password: string;
-};
 
-const filePath = './local_data/users.json';
+const SECRET = process.env.JWT_SECRET || 'defaultsecret';
 
 // POST
 export async function POST(req: Request) {
   const body = await req.json();
-  const { email, password, username } = body.user || {};
+  const { email, password, username, bio, image } = body.user || {};
 
   if (!username || !email || !password) {
     return NextResponse.json({ errors: { message: 'Missing fields' } }, { status: 422 });
@@ -25,40 +21,23 @@ export async function POST(req: Request) {
     return NextResponse.json({ errors: { message: 'Email already registered' } }, { status: 409 });
   }
 
-  const newUser: User = { username, email, password };
+  const newUser: User = { username, email, password, bio, image };
   users.push(newUser);
   await saveUsers(users);
 
-  return NextResponse.json({ user: newUser }, { status: 201 });
-}
+  const token = jwt.sign({ email: newUser.email }, SECRET, { expiresIn: '1h' });
 
-
-
-// ユーザー情報読み込み用関数
-async function loadUsers(): Promise<User[]> {
-  if (process.env.NODE_ENV === 'production') {
-    // 本番環境ではVercel KVからデータを取得
-    const data = await kv.get<User[]>('users');
-    return data || [];
-  } else {
-    // ローカル環境ではファイルシステムからデータを取得
-    try {
-      const data = fs.readFileSync(filePath, 'utf-8');
-      return JSON.parse(data) as User[];
-    } catch {
-      return [];
-    }
-  }
-}
-
-// ユーザー情報保存用関数
-async function saveUsers(users: User[]): Promise<void> {
-  if (process.env.NODE_ENV === 'production') {
-    // 本番環境ではVercel KVにデータを保存
-    await kv.set('users', users);
-  } else {
-    // ローカル環境ではファイルシステムにデータを保存
-    fs.writeFileSync(filePath, JSON.stringify(users, null, 2));
-  }
+  return NextResponse.json(
+    {
+      user: {
+        email: newUser.email,
+        username: newUser.username,
+        bio: newUser.bio || '',
+        image: newUser.image || '',
+        token,
+      },
+    },
+    { status: 201 }
+  );
 }
 
