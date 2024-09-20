@@ -5,7 +5,7 @@ import { getCurrentUser } from '@/app/utils/auth';
 import slugify from 'slugify';
 import { v4 as uuidv4 } from 'uuid';
 
-// Create
+// 記事作成
 export async function POST(req: Request) {
   const body = await req.json();
   const { title, description, body: articleBody, tagList } = body.article || {};

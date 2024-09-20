@@ -5,7 +5,7 @@ import { loadJsonData } from '@/app/utils/jsonStorageHandler'
 
 const SECRET = process.env.JWT_SECRET!;
 
-// POST
+// ログイン
 export async function POST (req: Request) {
   const body = await req.json()
   const { email, password } = body.user || {}

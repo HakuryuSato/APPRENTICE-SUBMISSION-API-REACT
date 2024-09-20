@@ -3,7 +3,7 @@ import { loadJsonData, saveJsonData } from '@/app/utils/jsonStorageHandler';
 import type { Article } from '@/app/types/article';
 import { getCurrentUser } from '@/app/utils/auth';
 
-// GET
+// 単体記事取得
 export async function GET(
   req: Request,
   { params }: { params: { slug: string } }
@@ -22,7 +22,7 @@ export async function GET(
 }
 
 
-
+// 記事更新
 export async function PUT(
   req: Request,
   { params }: { params: { slug: string } }
@@ -62,7 +62,7 @@ export async function PUT(
   return NextResponse.json({ article }, { status: 200 });
 }
 
-
+// 記事削除
 export async function DELETE(
   req: Request,
   { params }: { params: { slug: string } }

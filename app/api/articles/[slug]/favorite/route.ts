@@ -3,6 +3,7 @@ import { loadJsonData, saveJsonData } from '@/app/utils/jsonStorageHandler';
 import type { Article } from '@/app/types/article';
 import { getCurrentUser } from '@/app/utils/auth';
 
+// お気に入り追加
 export async function POST(
   req: Request,
   { params }: { params: { slug: string } }
@@ -46,7 +47,7 @@ export async function POST(
   return NextResponse.json({ article: responseArticle }, { status: 200 });
 }
 
-
+// お気に入り削除
 export async function DELETE(
   req: Request,
   { params }: { params: { slug: string } }
