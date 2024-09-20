@@ -9,7 +9,7 @@ export async function getCurrentUser(req: Request): Promise<User | null> {
   if (!authHeader || !authHeader.startsWith('Token ')) {
     return null;
   }
-  const token = authHeader.slice(6); // 'Token 'の部分を除去
+  const token = authHeader.slice(6);
   try {
     const decoded = jwt.verify(token, SECRET) as { email: string };
     const users = await loadJsonData<User>('users');

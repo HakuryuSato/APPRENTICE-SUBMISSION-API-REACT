@@ -6,8 +6,9 @@ export type Article = {
   tagList: string[]
   createdAt: string
   updatedAt: string
-  favorited: boolean
-  favoritesCount: number
+  favorites?: string[]
+  favoritesCount?: number
+  favorited?: boolean
   author: {
     username: string
     bio: string

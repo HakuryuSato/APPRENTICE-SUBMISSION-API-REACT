@@ -3,42 +3,17 @@ import { loadJsonData, saveJsonData } from '@/app/utils/jsonStorageHandler';
 import type { Article } from '@/app/types/article';
 import { getCurrentUser } from '@/app/utils/auth';
 
-// GET
-export async function GET(
+export async function POST(
   req: Request,
   { params }: { params: { slug: string } }
 ) {
-  const { slug } = params;
-
-  const articles = await loadJsonData<Article>('articles');
-
-  const article = articles.find((a) => a.slug === slug);
-
-  if (!article) {
-    return NextResponse.json({ message: 'Article not found' }, { status: 404 });
-  }
-
-  return NextResponse.json({ article }, { status: 200 });
-}
-
-
-
-export async function PUT(
-  req: Request,
-  { params }: { params: { slug: string } }
-) {
-  const { slug } = params;
-  const body = await req.json();
-  const { title, description, body: articleBody } = body.article || {};
-
   const currentUser = await getCurrentUser(req);
   if (!currentUser) {
     return NextResponse.json({ errors: { message: 'Unauthorized' } }, { status: 401 });
   }
 
   const articles = await loadJsonData<Article>('articles');
-
-  const articleIndex = articles.findIndex((a) => a.slug === slug);
+  const articleIndex = articles.findIndex((a) => a.slug === params.slug);
 
   if (articleIndex === -1) {
     return NextResponse.json({ message: 'Article not found' }, { status: 404 });
@@ -46,20 +21,29 @@ export async function PUT(
 
   const article = articles[articleIndex];
 
-  if (article.author.username !== currentUser.username) {
-    return NextResponse.json({ errors: { message: 'Forbidden' } }, { status: 403 });
+  if (!article.favorites) {
+    article.favorites = [];
   }
 
-  if (title) article.title = title;
-  if (description) article.description = description;
-  if (articleBody) article.body = articleBody;
+  if (!article.favorites.includes(currentUser.username)) {
+    article.favorites.push(currentUser.username);
+  }
 
   article.updatedAt = new Date().toISOString();
 
   articles[articleIndex] = article;
   await saveJsonData<Article>('articles', articles);
 
-  return NextResponse.json({ article }, { status: 200 });
+  const favorited = true;
+  const favoritesCount = article.favorites.length;
+
+  const responseArticle = {
+    ...article,
+    favorited,
+    favoritesCount,
+  };
+
+  return NextResponse.json({ article: responseArticle }, { status: 200 });
 }
 
 
@@ -67,16 +51,13 @@ export async function DELETE(
   req: Request,
   { params }: { params: { slug: string } }
 ) {
-  const { slug } = params;
-
   const currentUser = await getCurrentUser(req);
   if (!currentUser) {
     return NextResponse.json({ errors: { message: 'Unauthorized' } }, { status: 401 });
   }
 
   const articles = await loadJsonData<Article>('articles');
-
-  const articleIndex = articles.findIndex((a) => a.slug === slug);
+  const articleIndex = articles.findIndex((a) => a.slug === params.slug);
 
   if (articleIndex === -1) {
     return NextResponse.json({ message: 'Article not found' }, { status: 404 });
@@ -84,13 +65,24 @@ export async function DELETE(
 
   const article = articles[articleIndex];
 
-  if (article.author.username !== currentUser.username) {
-    return NextResponse.json({ errors: { message: 'Forbidden' } }, { status: 403 });
+  if (!article.favorites) {
+    article.favorites = [];
   }
 
-  articles.splice(articleIndex, 1);
+  article.favorites = article.favorites.filter((username) => username !== currentUser.username);
+  article.updatedAt = new Date().toISOString();
 
+  articles[articleIndex] = article;
   await saveJsonData<Article>('articles', articles);
 
-  return NextResponse.json({ message: 'Article deleted' }, { status: 200 });
+  const favorited = false;
+  const favoritesCount = article.favorites.length;
+
+  const responseArticle = {
+    ...article,
+    favorited,
+    favoritesCount,
+  };
+
+  return NextResponse.json({ article: responseArticle }, { status: 200 });
 }

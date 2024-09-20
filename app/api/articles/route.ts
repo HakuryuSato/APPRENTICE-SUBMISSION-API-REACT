@@ -1,5 +1,3 @@
-// /app/api/articles/route.ts
-
 import { NextResponse } from 'next/server';
 import { loadJsonData, saveJsonData } from '@/app/utils/jsonStorageHandler';
 import type { Article } from '@/app/types/article';
@@ -7,6 +5,7 @@ import { getCurrentUser } from '@/app/utils/auth';
 import slugify from 'slugify';
 import { v4 as uuidv4 } from 'uuid';
 
+// Create
 export async function POST(req: Request) {
   const body = await req.json();
   const { title, description, body: articleBody, tagList } = body.article || {};
@@ -25,7 +24,6 @@ export async function POST(req: Request) {
 
   let slug = slugify(title, { lower: true, strict: true });
 
-  // スラッグの重複を避けるためにユニークな識別子を追加
   if (articles.some((article) => article.slug === slug)) {
     slug = `${slug}-${uuidv4()}`;
   }
