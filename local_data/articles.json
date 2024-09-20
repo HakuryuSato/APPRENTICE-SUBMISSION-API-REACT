@@ -1,0 +1,21 @@
+[
+  {
+    "slug": "how-to-train-your-dragon",
+    "title": "How to train your dragon",
+    "description": "Ever wonder how?",
+    "body": "With two hands",
+    "tagList": [
+      "training",
+      "dragons"
+    ],
+    "createdAt": "2024-09-20T06:40:06.006Z",
+    "updatedAt": "2024-09-20T06:45:48.871Z",
+    "favorited": false,
+    "favoritesCount": 0,
+    "author": {
+      "username": "test0",
+      "bio": "",
+      "image": ""
+    }
+  }
+]

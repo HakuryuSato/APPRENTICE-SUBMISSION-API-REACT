@@ -18,5 +18,45 @@
     "username": "user_3661",
     "email": "user_4289@example.com",
     "password": "password123"
+  },
+  {
+    "username": "user_7164",
+    "email": "user_1674@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "user_9495",
+    "email": "user_975@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "user_1939",
+    "email": "user_1356@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "test0",
+    "email": "aaa@bbb",
+    "password": "000000"
+  },
+  {
+    "username": "user_5035",
+    "email": "user_5073@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "user_6938",
+    "email": "user_1628@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "user_2796",
+    "email": "user_1699@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "user_6447",
+    "email": "user_3338@example.com",
+    "password": "password123"
   }
 ]
