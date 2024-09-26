@@ -1,30 +1,34 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import CustomHead from './components/Layout/Head';
-import Layout from './components/Layout/Layout';
+import { ReactNode } from 'react';
+import { Titillium_Web } from 'next/font/google';
+import Header from './components/Layout/Header';
+import Footer from './components/Layout/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
+const titilliumWeb = Titillium_Web({
+  weight: '700',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-titillium-web',
+});
 
 export const metadata: Metadata = {
   title: 'Conduit',
   description: 'A place to share your knowledge.',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={titilliumWeb.variable}>
       <head>
-        <CustomHead />
+        <meta charSet="utf-8" />
+        <title>Conduit</title>
       </head>
-      <body className={inter.className}>
-        <Layout>{children}</Layout>
+      <body>
+        <Header />
+        {children}
+        <Footer />
       </body>
     </html>
   );
 }
-
