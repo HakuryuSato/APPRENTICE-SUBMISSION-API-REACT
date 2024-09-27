@@ -1,4 +1,3 @@
-// app/components/Home/ArticlePreview.tsx
 import React from 'react';
 import Image from 'next/image';
 import { Article } from '@custom-types/article';
