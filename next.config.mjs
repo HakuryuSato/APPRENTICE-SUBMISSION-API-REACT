@@ -2,6 +2,7 @@
 const nextConfig = {
   images: {
     domains: ['i.imgur.com'],
+    domains: ['api.realworld.io'],
   },
 };
 
