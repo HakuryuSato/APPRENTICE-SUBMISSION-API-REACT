@@ -1,3 +1,5 @@
+import type { Article } from "@custom-types/article";
+
 const API_URL = 'http://localhost:3000/api';
 
 // ユーザー関連の型定義
@@ -23,24 +25,7 @@ interface ErrorResponse {
   errors: { [key: string]: string[] };
 }
 
-// 記事関連の型定義
-interface Article {
-  slug: string;
-  title: string;
-  description: string;
-  body: string;
-  tagList: string[];
-  createdAt: string;
-  updatedAt: string;
-  favorited: boolean;
-  favoritesCount: number;
-  author: {
-    username: string;
-    bio?: string;
-    image?: string;
-    following: boolean;
-  };
-}
+
 
 interface ArticleResponse {
   article: Article;

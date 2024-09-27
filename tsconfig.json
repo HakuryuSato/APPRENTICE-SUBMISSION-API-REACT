@@ -21,7 +21,7 @@
       "@/*": ["./*"],
       "@components/*": ["./app/components/*"],
       "@utils/*": ["./app/utils/*"],
-      "@types/*": ["./app/types/*"]
+      "@custom-types/*": ["./app/custom-types/*"]
     },
     "types": ["jest", "node"]
   },

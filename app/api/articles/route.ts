@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { loadJsonData, saveJsonData } from '@/app/utils/jsonStorageHandler';
-import type { Article } from '@/app/types/article';
-import { getCurrentUser } from '@/app/utils/auth';
+import { loadJsonData, saveJsonData } from '@utils/jsonStorageHandler';
+import type { Article } from '@custom-types/article';
+import { getCurrentUser } from '@utils/auth';
 import slugify from 'slugify';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -28,6 +28,7 @@ export async function POST(req: Request) {
     slug = `${slug}-${uuidv4()}`;
   }
 
+
   const newArticle: Article = {
     slug,
     title,
@@ -38,12 +39,14 @@ export async function POST(req: Request) {
     updatedAt: new Date().toISOString(),
     favorited: false,
     favoritesCount: 0,
+    favorites: [],
     author: {
       username: currentUser.username,
-      bio: currentUser.bio || '',
-      image: currentUser.image || '',
+      bio: currentUser.bio || null,
+      image: currentUser.image || null,
     },
   };
+
 
   articles.push(newArticle);
   await saveJsonData<Article>('articles', articles);

@@ -1,31 +1,27 @@
+// app/components/Home/ArticlePreview.tsx
 import React from 'react';
 import Image from 'next/image';
+import { Article } from '@custom-types/article';
 
 interface ArticlePreviewProps {
-  article: {
-    author: {
-      username: string;
-      image: string;
-    };
-    createdAt: string;
-    favoritesCount: number;
-    slug: string;
-    title: string;
-    description: string;
-    tagList: string[];
-  };
+  article: Article;
 }
 
 const ArticlePreview: React.FC<ArticlePreviewProps> = ({ article }) => (
   <div className="article-preview">
     <div className="article-meta">
       <a href={`/profile/${article.author.username}`}>
-        <Image
-          src={article.author.image}
-          alt={article.author.username}
-          width={32}
-          height={32}
-        />
+        {article.author.image ? (
+          <Image
+            src={article.author.image}
+            alt={article.author.username}
+            width={32}
+            height={32}
+          />
+        ) : (
+          // 画像がない場合のプレースホルダー
+          <div style={{ width: 32, height: 32, backgroundColor: '#ccc' }} />
+        )}
       </a>
       <div className="info">
         <a href={`/profile/${article.author.username}`} className="author">

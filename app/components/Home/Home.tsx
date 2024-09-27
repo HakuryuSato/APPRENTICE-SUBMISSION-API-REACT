@@ -8,7 +8,7 @@ import ArticleList from './ArticleList';
 import Pagination from './Pagination';
 import TagList from './TagList';
 import { getAllArticles } from '@utils/api';
-import { Article } from '@types/article';
+import { Article } from '@custom-types/article';
 
 const ARTICLES_PER_PAGE = 10;
 
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
         const response = await getAllArticles(offset, ARTICLES_PER_PAGE);
         setArticles(response.articles);
         setArticlesCount(response.articlesCount);
-      } catch (err) {
+      } catch {
         setError('記事の読み込みに失敗しました。');
       } finally {
         setLoading(false);

@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import type { User } from '@/app/types/user';
+import type { User } from '@/app/custom-types/user';
 import { loadJsonData } from '@/app/utils/jsonStorageHandler';
 
 const SECRET = process.env.JWT_SECRET!;

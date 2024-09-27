@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { loadJsonData, saveJsonData } from '@/app/utils/jsonStorageHandler';
-import type { Article } from '@/app/types/article';
-import { getCurrentUser } from '@/app/utils/auth';
+import { loadJsonData, saveJsonData } from '@utils/jsonStorageHandler';
+import type { Article } from '@custom-types/article';
+import { getCurrentUser } from '@utils/auth';
 
 // お気に入り追加
 export async function POST(
