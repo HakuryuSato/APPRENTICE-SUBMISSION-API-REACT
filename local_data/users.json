@@ -1,67 +1,12 @@
 [
   {
-    "username": "testuser",
-    "email": "test@example.com",
-    "password": "password123"
+    "username": "test",
+    "email": "test@test",
+    "password": "$2a$10$iD/ed/PpkU4iV.hLbiBk9uh5NmjiYtUpdcWgZDzRrE7jDiZkVV/BO"
   },
   {
-    "username": "testuser2",
-    "email": "test2@example.com",
-    "password": "password1234"
-  },
-  {
-    "username": "testuser2",
-    "email": "test3@example.com",
-    "password": "password1234"
-  },
-  {
-    "username": "user_3661",
-    "email": "user_4289@example.com",
-    "password": "password123"
-  },
-  {
-    "username": "user_7164",
-    "email": "user_1674@example.com",
-    "password": "password123"
-  },
-  {
-    "username": "user_9495",
-    "email": "user_975@example.com",
-    "password": "password123"
-  },
-  {
-    "username": "user_1939",
-    "email": "user_1356@example.com",
-    "password": "password123"
-  },
-  {
-    "username": "test0",
-    "email": "aaa@bbb",
-    "password": "000000"
-  },
-  {
-    "username": "user_5035",
-    "email": "user_5073@example.com",
-    "password": "password123"
-  },
-  {
-    "username": "user_6938",
-    "email": "user_1628@example.com",
-    "password": "password123"
-  },
-  {
-    "username": "user_2796",
-    "email": "user_1699@example.com",
-    "password": "password123"
-  },
-  {
-    "username": "user_6447",
-    "email": "user_3338@example.com",
-    "password": "password123"
-  },
-  {
-    "username": "user_3300",
-    "email": "user_3417@example.com",
-    "password": "password123"
+    "username": "user_7292",
+    "email": "user_4895@example.com",
+    "password": "$2a$10$awFkcwINugn1ecHqONWH1.fFD6QJx61lLrYCqSS28RM/IDTrpay8."
   }
 ]
