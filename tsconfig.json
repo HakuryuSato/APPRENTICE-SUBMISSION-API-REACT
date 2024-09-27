@@ -19,7 +19,9 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@components/*": ["./app/components/*"]
+      "@components/*": ["./app/components/*"],
+      "@utils/*": ["./app/utils/*"],
+      "@types/*": ["./app/types/*"]
     },
     "types": ["jest", "node"]
   },

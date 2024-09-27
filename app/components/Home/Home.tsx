@@ -1,43 +1,47 @@
 'use client';
 
-import React, { useState } from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import Banner from './Banner';
 import ArticleList from './ArticleList';
 import Pagination from './Pagination';
 import TagList from './TagList';
+import { getAllArticles } from '@utils/api';
+import { Article } from '@types/article';
+
+const ARTICLES_PER_PAGE = 10;
 
 const Home: React.FC = () => {
-  // ページネーションの現在のページを状態として管理
+  // 状態管理
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [articlesCount, setArticlesCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 2; // 実際にはAPIから取得
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // モックデータ（実際にはAPIからデータを取得します）
-  const articles = [
-    {
-      author: {
-        username: 'Eric Simons',
-        image: 'http://i.imgur.com/Qr71crq.jpg',
-      },
-      createdAt: '2021-01-20T00:00:00.000Z',
-      favoritesCount: 29,
-      slug: 'how-to-build-webapps-that-scale',
-      title: 'How to build webapps that scale',
-      description: 'This is the description for the post.',
-      tagList: ['realworld', 'implementations'],
-    },
-    {
-      author: {
-        username: 'Albert Pai',
-        image: 'http://i.imgur.com/N4VcUeJ.jpg',
-      },
-      createdAt: '2021-01-20T00:00:00.000Z',
-      favoritesCount: 32,
-      slug: 'the-song-you',
-      title: "The song you won't ever stop singing. No matter how hard you try.",
-      description: 'This is the description for the post.',
-      tagList: ['realworld', 'implementations'],
-    },
-  ];
+  // 総ページ数を計算
+  const totalPages = Math.ceil(articlesCount / ARTICLES_PER_PAGE);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const offset = (currentPage - 1) * ARTICLES_PER_PAGE;
+        const response = await getAllArticles(offset, ARTICLES_PER_PAGE);
+        setArticles(response.articles);
+        setArticlesCount(response.articlesCount);
+      } catch (err) {
+        setError('記事の読み込みに失敗しました。');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, [currentPage]);
 
   const tags = [
     'programming',
@@ -75,7 +79,13 @@ const Home: React.FC = () => {
             </div>
 
             {/* 記事リスト */}
-            <ArticleList articles={articles} />
+            {loading ? (
+              <div>記事を読み込み中...</div>
+            ) : error ? (
+              <div>{error}</div>
+            ) : (
+              <ArticleList articles={articles} />
+            )}
 
             {/* ページネーション */}
             <Pagination

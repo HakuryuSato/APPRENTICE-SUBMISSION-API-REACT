@@ -1,18 +1,6 @@
 import React from 'react';
 import ArticlePreview from './ArticlePreview';
-
-interface Article {
-  author: {
-    username: string;
-    image: string;
-  };
-  createdAt: string;
-  favoritesCount: number;
-  slug: string;
-  title: string;
-  description: string;
-  tagList: string[];
-}
+import { Article } from '@types/article';
 
 interface ArticleListProps {
   articles: Article[];
