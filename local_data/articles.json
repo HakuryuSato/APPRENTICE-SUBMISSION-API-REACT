@@ -13,7 +13,7 @@
     "author": {
       "username": "test0",
       "bio": "",
-      "image": ""
+      "image": "https://api.realworld.io/images/demo-avatar.png"
     }
   },
   {
@@ -30,7 +30,7 @@
     "author": {
       "username": "test1",
       "bio": "Dragon trainer",
-      "image": "https://example.com/images/test1.png"
+      "image": "https://api.realworld.io/images/demo-avatar.png"
     }
   }
 ]
