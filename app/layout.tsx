@@ -1,20 +1,21 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { ReactNode } from 'react';
-import { Titillium_Web } from 'next/font/google';
-import Header from './components/Layout/Header';
-import Footer from './components/Layout/Footer';
+import "./globals.css";
+import type { Metadata } from "next";
+import { ReactNode } from "react";
+import { Titillium_Web } from "next/font/google";
+import Header from "./components/Layout/Header";
+import Footer from "./components/Layout/Footer";
+import { AuthProvider } from "@contexts/AuthContext";
 
 const titilliumWeb = Titillium_Web({
-  weight: '700',
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-titillium-web',
+  weight: "700",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-titillium-web",
 });
 
 export const metadata: Metadata = {
-  title: 'Conduit',
-  description: 'A place to share your knowledge.',
+  title: "Conduit",
+  description: "A place to share your knowledge.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -25,9 +26,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <title>Conduit</title>
       </head>
       <body>
-        <Header />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <Header />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

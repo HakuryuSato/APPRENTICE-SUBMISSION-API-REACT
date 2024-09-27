@@ -2,21 +2,33 @@
 
 import React, { useState } from 'react';
 import AuthForm from './AuthForm';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@contexts/AuthContext';
+import { ErrorResponse } from '@/app/custom-types/error_response';
 
 const Login: React.FC = () => {
-  const [errors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<string[]>([]);
+  const { login } = useAuth();
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // ログイン処理をここに記述します
     const formData = new FormData(e.currentTarget);
-    const email = formData.get('email');
-    const password = formData.get('password');
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
 
-    console.log('ログイン試行:', { email, password });
-
-    // エラーがある場合は setErrors を使用してエラーメッセージを更新します
-    // setErrors(['無効なメールアドレスまたはパスワードです']);
+    try {
+      await login(email, password);
+      // ログイン成功後、トップページにリダイレクト
+      router.push('/');
+    } catch (error: unknown) {
+      if (error && typeof error === 'object' && 'errors' in error) {
+        const err = error as ErrorResponse;
+        setErrors([err.errors.message || 'Login failed']);
+      } else {
+        setErrors(['Login failed']);
+      }
+    }
   };
 
   const fields = [

@@ -1,41 +1,52 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import AuthForm from './AuthForm';
+import React, { useState } from "react";
+import AuthForm from "./AuthForm";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@contexts/AuthContext";
+import { ErrorResponse } from "@custom-types/error_response";
 
 const Register: React.FC = () => {
   const [errors, setErrors] = useState<string[]>([]);
+  const { register } = useAuth();
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 登録処理をここに記述
     const formData = new FormData(e.currentTarget);
-    const username = formData.get('username');
-    const email = formData.get('email');
-    const password = formData.get('password');
+    const username = formData.get("username") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
 
-    console.log('登録試行:', { username, email, password });
-
-    // エラーがある場合は setErrors を使用してエラーメッセージを更新
-    setErrors(['そのメールアドレスは既に使用されています']);
+    try {
+      await register(username, email, password);
+      router.push("/");
+    } catch (error: unknown) {
+      if (error && typeof error === "object" && "errors" in error) {
+        const err = error as ErrorResponse;
+        setErrors([err.errors.message || "Login failed"]);
+      } else {
+        setErrors(["Login failed"]);
+      }
+    }
   };
 
   const fields = [
     {
-      type: 'text',
-      placeholder: 'Username',
-      name: 'username',
+      type: "text",
+      placeholder: "Username",
+      name: "username",
     },
     {
-      type: 'text',
-      placeholder: 'Email',
-      name: 'email',
+      type: "text",
+      placeholder: "Email",
+      name: "email",
     },
     {
-      type: 'password',
-      placeholder: 'Password',
-      name: 'password',
+      type: "password",
+      placeholder: "Password",
+      name: "password",
     },
   ];
 
