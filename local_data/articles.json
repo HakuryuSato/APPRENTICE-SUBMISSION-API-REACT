@@ -4,18 +4,33 @@
     "title": "How to train your dragon",
     "description": "Ever wonder how?",
     "body": "With two hands",
-    "tagList": [
-      "training",
-      "dragons"
-    ],
+    "tagList": ["training", "dragons"],
     "createdAt": "2024-09-20T06:40:06.006Z",
     "updatedAt": "2024-09-20T06:45:48.871Z",
+    "favorites": [],
     "favorited": false,
     "favoritesCount": 0,
     "author": {
       "username": "test0",
       "bio": "",
       "image": ""
+    }
+  },
+  {
+    "slug": "how-to-train-your-dragon-2",
+    "title": "How to train your dragon 2",
+    "description": "So you want to train another dragon?",
+    "body": "With even more care",
+    "tagList": ["training", "dragons", "advanced"],
+    "createdAt": "2024-09-21T06:40:06.006Z",
+    "updatedAt": "2024-09-21T06:45:48.871Z",
+    "favorites": [],
+    "favorited": false,
+    "favoritesCount": 0,
+    "author": {
+      "username": "test1",
+      "bio": "Dragon trainer",
+      "image": "https://example.com/images/test1.png"
     }
   }
 ]
