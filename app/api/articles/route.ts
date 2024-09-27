@@ -53,3 +53,59 @@ export async function POST(req: Request) {
 
   return NextResponse.json({ article: newArticle }, { status: 201 });
 }
+
+
+// 記事一覧取得
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const limit = parseInt(searchParams.get('limit') || '20', 10);
+  const offset = parseInt(searchParams.get('offset') || '0', 10);
+  const tag = searchParams.get('tag');
+  const author = searchParams.get('author');
+  const favorited = searchParams.get('favorited');
+
+  const currentUser = await getCurrentUser(req);
+
+  const articles = await loadJsonData<Article>('articles');
+
+  // フィルタリング
+  let filteredArticles = articles;
+
+  if (tag) {
+    filteredArticles = filteredArticles.filter((article) =>
+      article.tagList.includes(tag)
+    );
+  }
+
+  if (author) {
+    filteredArticles = filteredArticles.filter(
+      (article) => article.author.username === author
+    );
+  }
+
+  if (favorited) {
+    filteredArticles = filteredArticles.filter((article) =>
+      article.favorites.includes(favorited)
+    );
+  }
+
+  // ページネーション
+  const paginatedArticles = filteredArticles.slice(offset, offset + limit);
+
+  // 現在のユーザーがお気に入り登録しているかどうかを設定
+  const articlesWithFavorited = paginatedArticles.map((article) => {
+    const favorited = currentUser
+      ? article.favorites.includes(currentUser.username)
+      : false;
+    return {
+      ...article,
+      favorited,
+      favoritesCount: article.favorites.length,
+    };
+  });
+
+  return NextResponse.json({
+    articles: articlesWithFavorited,
+    articlesCount: filteredArticles.length,
+  });
+}
