@@ -80,9 +80,6 @@ export async function getCurrentUser(): Promise<UserResponse> {
 }
 
 
-
-
-
 // 記事関連の関数
 // 全ての記事を取得（ページネーション対応）
 export async function getAllArticles(offset = 0, limit = 10): Promise<MultipleArticlesResponse> {
@@ -102,7 +99,8 @@ export async function getArticlesFavoritedBy(username: string): Promise<Multiple
   return handleResponse<MultipleArticlesResponse>(response);
 }
 
-// 新しい記事を作成
+
+// 記事の新規作成
 export async function createArticle(article: NewArticle): Promise<ArticleResponse> {
   const response = await fetch(`${API_URL}/articles`, {
     method: 'POST',
@@ -111,6 +109,7 @@ export async function createArticle(article: NewArticle): Promise<ArticleRespons
   });
   return handleResponse<ArticleResponse>(response);
 }
+
 
 // スラッグで記事を取得
 export async function getArticle(slug: string): Promise<ArticleResponse> {

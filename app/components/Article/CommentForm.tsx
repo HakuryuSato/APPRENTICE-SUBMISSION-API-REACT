@@ -1,20 +1,38 @@
+// app/components/Article/CommentForm.tsx
 'use client';
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-
+import { useAuth } from '@/app/contexts/AuthContext';
 const CommentForm: React.FC = () => {
+  const { user } = useAuth();
   const [comment, setComment] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // ユーザーがログインしていない場合、フォームを表示しない
+  if (!user) {
+    return null;
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // コメント投稿処理をここに記述予定
     console.log('コメント投稿:', comment);
     setComment('');
-  };
 
-  const currentUser = {
-    image: 'http://i.imgur.com/Qr71crq.jpg',
+    // 実際の実装では、コメントをAPIに送信し、状態を更新します
+    // 例:
+    /*
+    try {
+      await postComment(articleSlug, comment);
+      // コメントリストを再取得または更新
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(`コメントの投稿に失敗しました: ${error.message}`);
+      } else {
+        alert('コメントの投稿に失敗しました。');
+      }
+    }
+    */
   };
 
   return (
@@ -26,12 +44,13 @@ const CommentForm: React.FC = () => {
           rows={3}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
+          required
         ></textarea>
       </div>
       <div className="card-footer">
         <Image
-          src={currentUser.image}
-          alt="User image"
+          src={user.image || 'https://api.realworld.io/images/demo-avatar.png'}
+          alt={`${user.username} image`}
           className="comment-author-img"
           width={32}
           height={32}

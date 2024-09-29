@@ -8,5 +8,26 @@
     "username": "user_7292",
     "email": "user_4895@example.com",
     "password": "$2a$10$awFkcwINugn1ecHqONWH1.fFD6QJx61lLrYCqSS28RM/IDTrpay8."
+  },
+  {
+    "username": "user_9362",
+    "email": "user_4514@example.com",
+    "password": "$2a$10$IU0wugpJ9MHj.Hcb4u/O2.qyLsl7YX50w/cZj.KDi74GY2ihYdui."
+  },
+  {
+    "username": "test",
+    "email": "aaa@bbb",
+    "password": "$2a$10$ZoWKu4brocLpKtqnme2O9eAsvqn2Pak/uHfEEospSFk4fSUFUNBMy"
+  },
+  {
+    "username": "ddd",
+    "email": "sss@sss",
+    "password": "$2a$10$KRjJwK311sv7JlZ1vvOtZuifGZbz5lkGyiQ1DVQ8ZMS1k2zslQAWi"
+  },
+  {
+    "username": "fff",
+    "email": "fff@fff",
+    "password": "$2a$10$Y/WS1ONV48624aRYltArMO9gzVDZ/0bGHg2dK2NnB98.D17E6.OsC",
+    "image": "https://api.realworld.io/images/demo-avatar.png"
   }
 ]

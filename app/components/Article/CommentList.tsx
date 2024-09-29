@@ -1,23 +1,19 @@
-import React from 'react';
-import Comment from './Comment';
+import React from "react";
+import Comment from "./Comment";
+import type { ArticleComment } from "@custom-types/article_comment";
 
 interface CommentListProps {
-  comments: {
-    id: number;
-    body: string;
-    createdAt: string;
-    author: {
-      username: string;
-      image: string;
-    };
-  }[];
+  comments: ArticleComment[];
 }
 
 const CommentList: React.FC<CommentListProps> = ({ comments }) => {
   return (
     <>
       {comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
+        <Comment
+          key={comment.id}
+          comment={comment}
+        />
       ))}
     </>
   );
