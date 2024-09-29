@@ -2,13 +2,9 @@ import { kv } from '@vercel/kv';
 import fs from 'fs';
 import path from 'path';
 
-
-// './local_data';
 const JSON_DATABASE_DIR = process.env.JSON_DATABASE_DIR!
 
-
 // DBの代替として、JSONファイルでデータを読み書きするための汎用関数
-
 // 読み込み
 export async function loadJsonData<T>(key: string): Promise<T[]> {
   if (process.env.NODE_ENV === 'production') {
