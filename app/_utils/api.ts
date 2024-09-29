@@ -6,7 +6,7 @@ import type {
   MultipleArticlesResponse,
   NewArticle,
   UpdateArticle,
-} from '@custom-types/api_types';
+} from '@/app/_custom-types/api_types';
 
 
 const API_URL = 'http://localhost:3000/api';

@@ -19,10 +19,10 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@components/*": ["./app/components/*"],
-      "@utils/*": ["./app/utils/*"],
-      "@custom-types/*": ["./app/custom-types/*"],
-      "@contexts/*": ["./app/contexts/*"],
+      "@components/*": ["./app/_components/*"],
+      "@utils/*": ["./app/_utils/*"],
+      "@custom-types/*": ["./app/_custom-types/*"],
+      "@contexts/*": ["./app/_contexts/*"],
       
     },
     "types": ["jest", "node"]

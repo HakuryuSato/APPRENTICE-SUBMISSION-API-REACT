@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import AuthForm from './AuthForm';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@contexts/AuthContext';
-import { ErrorResponse } from '@/app/custom-types/error_response';
+import { useAuth } from '@/app/_contexts/AuthContext';
+import { ErrorResponse } from '@/app/_custom-types/error_response';
 
 const Login: React.FC = () => {
   const [errors, setErrors] = useState<string[]>([]);

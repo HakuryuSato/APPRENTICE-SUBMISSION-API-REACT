@@ -1,6 +1,6 @@
 import React from "react";
 import Comment from "./Comment";
-import type { ArticleComment } from "@custom-types/article_comment";
+import type { ArticleComment } from "@/app/_custom-types/article_comment";
 
 interface CommentListProps {
   comments: ArticleComment[];

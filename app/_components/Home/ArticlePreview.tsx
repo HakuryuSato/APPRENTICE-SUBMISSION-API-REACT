@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Article } from '@custom-types/article';
+import { Article } from '@/app/_custom-types/article';
 
 interface ArticlePreviewProps {
   article: Article;

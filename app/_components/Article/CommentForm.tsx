@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { useAuth } from '@/app/contexts/AuthContext';
+import { useAuth } from '@/app/_contexts/AuthContext';
 const CommentForm: React.FC = () => {
   const { user } = useAuth();
   const [comment, setComment] = useState('');

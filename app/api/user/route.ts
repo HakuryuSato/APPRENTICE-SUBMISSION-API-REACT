@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
-import type { User } from '@custom-types/user';
+import type { User } from '@/app/_custom-types/user';
 import { loadJsonData } from '@utils/jsonStorageHandler';
 
 const SECRET = process.env.JWT_SECRET!;

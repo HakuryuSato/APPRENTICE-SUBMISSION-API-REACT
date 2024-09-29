@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image'; // next/image のインポート
-import { useAuth } from '@contexts/AuthContext';
+import { useAuth } from '@/app/_contexts/AuthContext';
 import { usePathname } from 'next/navigation';
 
 const Header = () => {

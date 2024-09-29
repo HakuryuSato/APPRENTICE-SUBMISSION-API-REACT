@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import ArticleForm from './ArticleForm';
 import { useRouter, useParams } from 'next/navigation';
 import { createArticle, getArticle, updateArticle } from '@utils/api';
-import { ErrorResponse } from '@custom-types/api_types';
+import { ErrorResponse } from '@/app/_custom-types/api_types';
 
 interface ArticleData {
   title: string;

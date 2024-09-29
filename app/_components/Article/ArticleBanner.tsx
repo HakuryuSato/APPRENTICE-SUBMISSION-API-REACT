@@ -1,6 +1,6 @@
 import React from "react";
 import ArticleMeta from "./ArticleMeta";
-import type { Article } from "@custom-types/article";
+import type { Article } from "@/app/_custom-types/article";
 
 interface ArticleBannerProps {
   article: Article;

@@ -1,5 +1,5 @@
 import React from 'react';
-import TagList from '@components/Home/TagList';
+import TagList from '@/app/_components/Home/TagList';
 
 interface ArticleContentProps {
   article: {

@@ -8,7 +8,7 @@ import ArticleList from './ArticleList';
 import Pagination from './Pagination';
 import TagList from './TagList';
 import { getAllArticles } from '@utils/api';
-import { Article } from '@custom-types/article';
+import { Article } from '@/app/_custom-types/article';
 
 const ARTICLES_PER_PAGE = 10;
 

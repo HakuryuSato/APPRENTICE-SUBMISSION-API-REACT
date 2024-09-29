@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { loadJsonData, saveJsonData } from '@utils/jsonStorageHandler';
-import type { Article } from '@custom-types/article';
+import type { Article } from '@/app/_custom-types/article';
 import { getCurrentUser } from '@utils/auth';
 import slugify from 'slugify';
 import { v4 as uuidv4 } from 'uuid';

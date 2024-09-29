@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { User } from '@custom-types/user';
+import { User } from '@/app/_custom-types/user';
 import { loginUser, registerUser, getCurrentUser } from '@utils/api';
 
 

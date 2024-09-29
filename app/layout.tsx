@@ -2,9 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { Titillium_Web } from "next/font/google";
-import Header from "./components/Layout/Header";
-import Footer from "./components/Layout/Footer";
-import { AuthProvider } from "@contexts/AuthContext";
+import Header from "./_components/Layout/Header";
+import Footer from "./_components/Layout/Footer";
+import { AuthProvider } from "@/app/_contexts/AuthContext";
 
 const titilliumWeb = Titillium_Web({
   weight: "700",

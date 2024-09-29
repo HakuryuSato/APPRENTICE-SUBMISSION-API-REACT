@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import ArticlePage from "@components/Article/ArticlePage";
+import ArticlePage from "@/app/_components/Article/ArticlePage";
 import { getArticle } from "@utils/api";
-import type { Article } from "@custom-types/article";
+import type { Article } from "@/app/_custom-types/article";
 
 const ArticlePageWrapper: React.FC = () => {
   const params = useParams();

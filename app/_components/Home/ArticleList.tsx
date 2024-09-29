@@ -1,6 +1,6 @@
 import React from 'react';
 import ArticlePreview from './ArticlePreview';
-import { Article } from '@custom-types/article';
+import { Article } from '@/app/_custom-types/article';
 
 interface ArticleListProps {
   articles: Article[];
