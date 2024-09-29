@@ -9,32 +9,29 @@ import { useRouter } from 'next/navigation';
 import { deleteArticle } from "@utils/api";
 
 const ArticleMeta: React.FC<{ article: Article }> = ({ article }) => {
-  const { user } = useAuth(); // 現在のユーザー情報を取得
+  const { user } = useAuth();
   const { author, createdAt, favorited, favoritesCount, slug } = article;
-  const router = useRouter(); // ルーターのインスタンスを取得
+  const router = useRouter();
 
-  // favorited を仮に使用してボタンのスタイルを変更
+
   const favoriteButtonClass = favorited
     ? "btn btn-sm btn-primary"
     : "btn btn-sm btn-outline-primary";
 
-  // 現在のユーザーが記事の著者であるかどうかを判定
   const isAuthor = user && user.username === author.username;
 
-  // 記事削除ハンドラー
+  // 記事削除
   const handleDelete = async () => {
     const confirmDelete = window.confirm("この記事を削除しますか？");
     if (!confirmDelete) return;
 
     try {
       await deleteArticle(slug);
-      router.push("/"); // ホームページにリダイレクト
+      router.push("/");
     } catch (error: unknown) { // any を unknown に変更
       console.error("記事の削除に失敗しました:", error);
       if (error instanceof Error) {
         alert(`記事の削除に失敗しました: ${error.message}`);
-      } else {
-        alert("記事の削除に失敗しました。");
       }
     }
   };

@@ -2,7 +2,9 @@ import { kv } from '@vercel/kv';
 import fs from 'fs';
 import path from 'path';
 
-const dataDir = './local_data';
+
+// './local_data';
+const JSON_DATABASE_DIR = process.env.JSON_DATABASE_DIR!
 
 
 // DBの代替として、JSONファイルでデータを読み書きするための汎用関数
@@ -13,7 +15,7 @@ export async function loadJsonData<T>(key: string): Promise<T[]> {
     const data = await kv.get<T[]>(key);
     return data || [];
   } else {
-    const filePath = path.join(dataDir, `${key}.json`);
+    const filePath = path.join(JSON_DATABASE_DIR, `${key}.json`);
     try {
       const data = fs.readFileSync(filePath, 'utf-8');
       return JSON.parse(data) as T[];
@@ -28,7 +30,7 @@ export async function saveJsonData<T>(key: string, data: T[]): Promise<void> {
   if (process.env.NODE_ENV === 'production') {
     await kv.set(key, data);
   } else {
-    const filePath = path.join(dataDir, `${key}.json`);
+    const filePath = path.join(JSON_DATABASE_DIR, `${key}.json`);
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
   }
 }
