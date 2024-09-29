@@ -1,18 +1,20 @@
 'use client'
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Article } from "@custom-types/article";
 import { useAuth } from "@contexts/AuthContext";
 import { useRouter } from 'next/navigation';
-import { deleteArticle } from "@utils/api";
+import { deleteArticle, favoriteArticle, unfavoriteArticle } from "@utils/api";
 
 const ArticleMeta: React.FC<{ article: Article }> = ({ article }) => {
   const { user } = useAuth();
-  const { author, createdAt, favorited, favoritesCount, slug } = article;
+  const { author, createdAt, favorited: initialFavorited, favoritesCount: initialFavoritesCount, slug } = article;
   const router = useRouter();
 
+  const [favorited, setFavorited] = useState<boolean>(initialFavorited);
+  const [favoritesCount, setFavoritesCount] = useState<number>(initialFavoritesCount);
 
   const favoriteButtonClass = favorited
     ? "btn btn-sm btn-primary"
@@ -27,11 +29,37 @@ const ArticleMeta: React.FC<{ article: Article }> = ({ article }) => {
 
     try {
       await deleteArticle(slug);
+      alert("記事が削除されました。");
       router.push("/");
-    } catch (error: unknown) { // any を unknown に変更
+    } catch (error: unknown) {
       console.error("記事の削除に失敗しました:", error);
       if (error instanceof Error) {
         alert(`記事の削除に失敗しました: ${error.message}`);
+      }
+    }
+  };
+
+  // お気に入りのトグル
+  const handleFavorite = async () => {
+    if (!user) {
+      alert("ログインが必要です。");
+      return;
+    }
+
+    try {
+      if (!favorited) {
+        const response = await favoriteArticle(slug);
+        setFavorited(true);
+        setFavoritesCount(response.article.favoritesCount);
+      } else {
+        const response = await unfavoriteArticle(slug);
+        setFavorited(false);
+        setFavoritesCount(response.article.favoritesCount);
+      }
+    } catch (error: unknown) {
+      console.error("お気に入りの更新に失敗しました:", error);
+      if (error instanceof Error) {
+        alert(`お気に入りの更新に失敗しました: ${error.message}`);
       }
     }
   };
@@ -61,7 +89,7 @@ const ArticleMeta: React.FC<{ article: Article }> = ({ article }) => {
         &nbsp; Follow {author.username}
       </button>
       &nbsp;&nbsp;
-      <button className={favoriteButtonClass}>
+      <button className={favoriteButtonClass} onClick={handleFavorite}>
         <i className="ion-heart"></i>
         &nbsp; Favorite Post <span className="counter">({favoritesCount})</span>
       </button>
