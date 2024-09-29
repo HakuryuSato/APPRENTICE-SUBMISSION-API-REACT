@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import TagInput from './TagInput';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 
 interface ArticleFormProps {
   onSubmit: (articleData: {
@@ -8,24 +9,38 @@ interface ArticleFormProps {
     body: string;
     tagList: string[];
   }) => void;
+  initialData?: {
+    title: string;
+    description: string;
+    body: string;
+    tagList: string[];
+  } | null;
 }
 
-const ArticleForm: React.FC<ArticleFormProps> = ({ onSubmit }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [body, setBody] = useState('');
+const ArticleForm: React.FC<ArticleFormProps> = ({ onSubmit, initialData }) => {
+  const [title, setTitle] = useState(initialData?.title || '');
+  const [description, setDescription] = useState(initialData?.description || '');
+  const [body, setBody] = useState(initialData?.body || '');
   const [tagInput, setTagInput] = useState('');
-  const [tagList, setTagList] = useState<string[]>([]);
+  const [tagList, setTagList] = useState<string[]>(initialData?.tagList || []);
 
-  const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && tagInput.trim() !== '') {
-      e.preventDefault();
-      setTagList([...tagList, tagInput.trim()]);
+  useEffect(() => {
+    if (initialData) {
+      setTitle(initialData.title);
+      setDescription(initialData.description);
+      setBody(initialData.body);
+      setTagList(initialData.tagList || []);
+    }
+  }, [initialData]);
+
+  const handleTagAdd = () => {
+    if (tagInput && !tagList.includes(tagInput)) {
+      setTagList([...tagList, tagInput]);
       setTagInput('');
     }
   };
 
-  const handleRemoveTag = (tag: string) => {
+  const handleTagRemove = (tag: string) => {
     setTagList(tagList.filter((t) => t !== tag));
   };
 
@@ -58,8 +73,8 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ onSubmit }) => {
         <fieldset className="form-group">
           <textarea
             className="form-control"
-            rows={8}
             placeholder="Write your article (in markdown)"
+            rows={8}
             value={body}
             onChange={(e) => setBody(e.target.value)}
           ></textarea>
@@ -71,9 +86,24 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ onSubmit }) => {
             placeholder="Enter tags"
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}
-            onKeyDown={handleAddTag}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleTagAdd();
+              }
+            }}
           />
-          <TagInput tagList={tagList} removeTag={handleRemoveTag} />
+          <div className="tag-list">
+            {tagList.map((tag) => (
+              <span className="tag-default tag-pill" key={tag}>
+                <i
+                  className="ion-close-round"
+                  onClick={() => handleTagRemove(tag)}
+                ></i>
+                {tag}
+              </span>
+            ))}
+          </div>
         </fieldset>
         <button className="btn btn-lg pull-xs-right btn-primary" type="submit">
           Publish Article

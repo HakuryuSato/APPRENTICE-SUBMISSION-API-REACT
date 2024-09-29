@@ -1,42 +1,19 @@
 import React from 'react';
 import ArticleBanner from './ArticleBanner';
 import ArticleContent from './ArticleContent';
-import ArticleMeta from './ArticleMeta';
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
+import type { Article } from '@custom-types/article';
+import type { ArticleComment } from '@custom-types/article_comment';
 
-interface Comment {
-  id: number;
-  body: string;
-  createdAt: string;
-  author: {
-    username: string;
-    image: string;
-  };
+
+
+interface ArticlePageProps {
+  article: Article;
 }
 
-const ArticlePage: React.FC = () => {
-  // モックデータ
-  const article = {
-    title: 'How to build webapps that scale',
-    body: `Web development technologies have evolved at an incredible clip over the past few years.
-
-## Introducing RealWorld.
-
-It's a great solution for learning how other frameworks work.`,
-    createdAt: '2021-01-20T00:00:00.000Z',
-    author: {
-      username: 'Eric Simons',
-      image: 'http://i.imgur.com/Qr71crq.jpg',
-      bio: '',
-      following: false,
-    },
-    favorited: false,
-    favoritesCount: 29,
-    tagList: ['realworld', 'implementations'],
-  };
-
-  const comments: Comment[] = [
+const ArticlePage: React.FC<ArticlePageProps> = ({ article }) => {
+  const comments: ArticleComment[] = [
     {
       id: 1,
       body: 'With supporting text below as a natural lead-in to additional content.',
@@ -46,7 +23,6 @@ It's a great solution for learning how other frameworks work.`,
         image: 'http://i.imgur.com/Qr71crq.jpg',
       },
     },
-    // 必要に応じて他のコメントを追加
   ];
 
   return (
@@ -57,11 +33,6 @@ It's a great solution for learning how other frameworks work.`,
         <ArticleContent article={article} />
 
         <hr />
-
-        <div className="article-actions">
-          <ArticleMeta article={article} />
-        </div>
-
         <div className="row">
           <div className="col-xs-12 col-md-8 offset-md-2">
             <CommentForm />

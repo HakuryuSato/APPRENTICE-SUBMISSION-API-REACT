@@ -1,18 +1,9 @@
-import React from 'react';
-import ArticleMeta from './ArticleMeta';
+import React from "react";
+import ArticleMeta from "./ArticleMeta";
+import type { Article } from "@custom-types/article";
 
 interface ArticleBannerProps {
-  article: {
-    title: string;
-    author: {
-      username: string;
-      image: string;
-      following: boolean;
-    };
-    createdAt: string;
-    favorited: boolean;
-    favoritesCount: number;
-  };
+  article: Article;
 }
 
 const ArticleBanner: React.FC<ArticleBannerProps> = ({ article }) => {
