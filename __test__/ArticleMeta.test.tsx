@@ -9,6 +9,10 @@ import { AuthContext } from "@/app/_contexts/AuthContext";
 import "@testing-library/jest-dom";
 import type { Article } from "@custom-types/article";
 
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+}));
+
 
 
 describe("ArticleMeta", () => {
