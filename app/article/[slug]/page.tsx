@@ -1,13 +1,55 @@
-import React from 'react';
-import ArticlePage from '@components/Article/ArticlePage';
+"use client";
 
-interface ArticlePageProps {
-  params: { slug: string };
-}
+import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import ArticlePage from "@components/Article/ArticlePage";
+import { getArticle } from "@utils/api";
+import type { Article } from "@custom-types/article";
 
-export default function Page({ params }: ArticlePageProps) {
-  const { slug } = params;
-  // slug を使用して API から記事データを取得します
+const ArticlePageWrapper: React.FC = () => {
+  const params = useParams();
+  const slugParam = params?.slug;
 
-  return <ArticlePage />;
-}
+  const [article, setArticle] = useState<Article | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (!slugParam || Array.isArray(slugParam)) {
+      setError("Invalid slug");
+      setLoading(false);
+      return;
+    }
+
+    const fetchArticle = async () => {
+      try {
+        const data = await getArticle(slugParam);
+        setArticle(data.article);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticle();
+  }, [slugParam]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!article) {
+    return <div>No article found.</div>;
+  }
+
+  return <ArticlePage article={article} />;
+};
+
+export default ArticlePageWrapper;
