@@ -29,5 +29,11 @@
     "email": "fff@fff",
     "password": "$2a$10$Y/WS1ONV48624aRYltArMO9gzVDZ/0bGHg2dK2NnB98.D17E6.OsC",
     "image": "https://api.realworld.io/images/demo-avatar.png"
+  },
+  {
+    "username": "1111",
+    "email": "111@111",
+    "password": "$2a$10$XqdYnvaW91X1jgKePMh6heqtK2lr3N2UusvS36kD2yNe9CDdKnfLm",
+    "image": "https://api.realworld.io/images/demo-avatar.png"
   }
 ]
