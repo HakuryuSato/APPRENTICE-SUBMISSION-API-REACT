@@ -1,13 +1,13 @@
 import { POST } from '../app/api/articles/route'
-import { loadJsonData } from '../app/utils/jsonStorageHandler'
-import { getCurrentUser } from '../app/utils/auth'
+import { loadJsonData } from '../app/_utils/jsonStorageHandler'
+import { getCurrentUser } from '../app/_utils/auth'
 
-jest.mock('../app/utils/jsonStorageHandler', () => ({
+jest.mock('../app/_utils/jsonStorageHandler', () => ({
   loadJsonData: jest.fn(),
   saveJsonData: jest.fn()
 }))
 
-jest.mock('../app/utils/auth', () => ({
+jest.mock('../app/_utils/auth', () => ({
   getCurrentUser: jest.fn()
 }))
 
