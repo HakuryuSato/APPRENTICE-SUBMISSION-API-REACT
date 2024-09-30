@@ -8,7 +8,7 @@ interface ArticleListProps {
 
 const ArticleList: React.FC<ArticleListProps> = ({ articles }) => (
   <>
-    {articles.map((article) => (
+    {articles.slice().reverse().map((article) => (
       <ArticlePreview key={article.slug} article={article} />
     ))}
   </>

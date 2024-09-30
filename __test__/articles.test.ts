@@ -1,5 +1,5 @@
 import { POST } from '../app/api/articles/route'
-import { loadJsonData } from '../app/_utils/jsonStorageHandler'
+import { loadJsonData } from '../app/_utils/vercel_kv_handler'
 import { getCurrentUser } from '../app/_utils/auth'
 
 jest.mock('../app/_utils/jsonStorageHandler', () => ({

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import type { User } from '@custom-types/user';
-import { loadJsonData } from '@utils/jsonStorageHandler';
+import { loadJsonData } from '@utils/vercel_kv_handler';
 
 const SECRET = process.env.JWT_SECRET!;
 
