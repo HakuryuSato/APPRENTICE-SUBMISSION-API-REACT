@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import type { User } from '@/app/_custom-types/user';
-import { loadJsonData } from '@utils/jsonStorageHandler';
+import { loadJsonData } from '@utils/vercel_kv_handler';
 
 const SECRET = process.env.JWT_SECRET!;
 

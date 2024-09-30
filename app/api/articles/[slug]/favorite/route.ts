@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { loadJsonData, saveJsonData } from '@utils/jsonStorageHandler';
+import { loadJsonData, saveJsonData } from '@utils/vercel_kv_handler';
 import type { Article } from '@custom-types/article';
 import { getCurrentUser } from '@utils/auth';
 
