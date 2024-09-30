@@ -1,0 +1,37 @@
+
+{ // client ugoku
+  "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Full Stack Debug",
+      "configurations": ["ServerSide", "ClientSide"]
+    }
+  ],
+  "configurations": [
+    {
+      "name": "ServerSide",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+      "args": ["dev"],
+      "runtimeArgs": ["--inspect"],
+      "sourceMaps": true,
+      "restart": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "ClientSide",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMaps": true,
+      "trace": true,
+      "sourceMapPathOverrides": {
+        "webpack://_N_E/*": "${webRoot}/*"
+      }
+    }
+  ]
+}

@@ -1,27 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+@import url('//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic');
+@import url('//demo.productionready.io/main.css');
 
+/* Googleフォント */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-titillium-web: 'Titillium Web', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
