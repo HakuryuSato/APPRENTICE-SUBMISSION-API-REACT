@@ -9,8 +9,8 @@ import type {
 } from '@/app/_custom-types/api_types';
 
 
-const API_URL = 'http://localhost:3000/api';
-
+const API_URL = process.env.NEXT_PUBLIC_BASE_URL + 'api'
+console.log(API_URL)
 
 // ヘッダーを取得するヘルパー関数（認証が必要な場合はトークンを含む）
 function getHeaders(authenticated = false): HeadersInit {
